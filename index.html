@@ -1,0 +1,59 @@
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+    function hideCanvas() {
+        document.getElementById('canvas').style.visibility = "hidden";
+    }
+    function showCanvas() {
+        document.getElementById('canvas').style.visibility = "visible";
+    }
+    function removeCanvas() {
+        var el = document.getElementById('canvas');
+        el.parentNode.removeChild(el);
+    }
+</script>
+<style text="css">
+    .content {
+        position: relative;
+        width: 800px;
+        height: 480px;
+        border: 1px solid #000000;
+	}
+    .videoplayer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+    <button onclick="hideCanvas()">canvas off</button>
+    <button onclick="showCanvas()">canvas on</button>
+    <button onclick="removeCanvas()">canvas remove</button>
+    <div class="content">
+        <video id="video" class="videoplayer" controls autoplay></video>
+        <canvas id="canvas" class="canvas"></canvas>
+    </div>
+</body>
+
+<script>
+  if(Hls.isSupported()) {
+    var video = document.getElementById('video');
+    var hls = new Hls();
+    hls.loadSource('https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8');
+    hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,function() {
+      video.play();
+  });
+  }
+
+  var canvas = document.getElementById("canvas");
+     var context = canvas.getContext("2d"); 
+
+     context.font = "20pt Arial";
+    context.fillText("Sample String", 10, 50);   	  	  	
+    </script>
+</script>
